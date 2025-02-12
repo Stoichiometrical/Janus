@@ -3,7 +3,6 @@ import torch
 import os
 from transformers import AutoConfig, AutoModelForCausalLM
 from janus.models import MultiModalityCausalLM, VLChatProcessor
-from janus.utils.io import load_pil_images
 from PIL import Image
 import numpy as np
 
@@ -103,6 +102,7 @@ with gr.Blocks() as demo:
         outputs=image_output
     )
 
-# Ensure the app binds to the correct port on Render
-port = int(os.environ.get("PORT", 7860))
-demo.launch(server_name="0.0.0.0", server_port=port)
+# **Fix for Render: Bind to Correct Port**
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))  # Default to 8080 if PORT is not set
+    demo.launch(server_name="0.0.0.0", server_port=port)
